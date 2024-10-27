@@ -18,7 +18,8 @@ function divide(a, b) {
 }
 
 function power(a, b) {
-  return a ** b;
+  let result = Math.pow(a, b);
+  return result;
 }
 module.exports = {
   sum,
