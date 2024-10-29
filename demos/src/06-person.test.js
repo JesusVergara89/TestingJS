@@ -1,13 +1,24 @@
 const Person = require("./06-person");
 
+    // AAA
+    // Arrange
+    // Act
+    // Assert
+
 describe("Test for person", () => {
+  // Arrange
   let person;
   beforeEach(() => {
     person = new Person("Jesus", 80, 1.8);
   });
+  // Act
   test("Should return down", () => {
+    // Arrange
     person.weight = 80;
-    expect(person.calcIMC()).toBe("overweight");
+    // Act
+    const IMC = person.calcIMC()
+    // Assert
+    expect(IMC).toBe("overweight");
   });
   test("Should return down", () => {
     person.weight = 75;
