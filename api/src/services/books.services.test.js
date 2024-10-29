@@ -1,5 +1,7 @@
+const { generateCothes, generateOneCothe } = require("../fakes/cothes.fake");
 const BooksService = require("./books.service");
 
+/*
 const fakeProducts = [
   {
     _id: "6720faca00b3498e8b47af87",
@@ -33,9 +35,9 @@ const fakeProducts = [
   },
 ];
 
-const mockGetAll = jest.fn();
 
-/*
+
+
 const MongoLibStub = {
   getAll: spyGetAll,
   create: () => {},
@@ -47,6 +49,8 @@ const MongoLibStub = {
   create: () => {},
 };
 */
+
+const mockGetAll = jest.fn();
 
 jest.mock("../lib/mongo.lib", () =>
   jest.fn().mockImplementation(() => ({
@@ -65,12 +69,13 @@ describe("Test for Books BooksService", () => {
     //follow AAA pattern, arrange, act, assert
     test("should return a list of books", async () => {
       //Arrange
+      const fakeProducts = generateCothes(5);
       mockGetAll.mockResolvedValue([...fakeProducts]);
       //Act
       const books = await service.getBooks({});
       console.log(books);
       //Assert
-      expect(books.length).toEqual(5);
+      expect(books.length).toEqual(fakeProducts.length);
       expect(mockGetAll).toHaveBeenCalled();
       expect(mockGetAll).toHaveBeenCalledTimes(1);
       expect(mockGetAll).toHaveBeenCalledWith("books", {});
@@ -78,25 +83,13 @@ describe("Test for Books BooksService", () => {
 
     test("should return a list of books", async () => {
       //Arrange
-      mockGetAll.mockResolvedValue([
-        {
-          _id: "6720fb2a00b3498e8b47af89",
-          product: "sneakers 2",
-          price: 222222,
-          brand: "SportySteps 2",
-        },
-        {
-          _id: "6720fb3b00b3498e8b47af8a",
-          product: "hoodie 2",
-          price: 333333,
-          brand: "UrbanWear 2",
-        },
-      ]);
+      const fakeProduct = generateOneCothe();
+      mockGetAll.mockResolvedValue(fakeProduct);
       //Act
       const books = await service.getBooks({});
       console.log(books);
       //Assert
-      expect(books.length).toEqual(2);
+      expect(books.length).toEqual(fakeProduct.length);
       expect(mockGetAll).toHaveBeenCalled();
       expect(mockGetAll).toHaveBeenCalledWith("books", {});
     });
